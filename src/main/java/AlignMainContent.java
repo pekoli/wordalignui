@@ -1,5 +1,3 @@
-import java.lang.*;
-import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -118,6 +116,7 @@ public class AlignMainContent {
 		undo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					bitext.resetLinkSet();
+                                        bitext.setUpdated();
 				}
 			});
 		
@@ -127,9 +126,9 @@ public class AlignMainContent {
 				public void actionPerformed(ActionEvent e) {
 					// write the links to memory and to file
 					Pair p = bitext.getPair();
-					p.addLinkSet(bitext.active_linkset, p.alignment);
-					p.writeToFile();
-					bitext.newLinkSet();  
+					p.addLinkSet(bitext.active_linkset);
+					bitext.newLinkSet();
+                                        bitext.setUpdated();
 				}
 			});
 
@@ -139,8 +138,7 @@ public class AlignMainContent {
         next_button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Pair p = bitext.getPair();
-					p.addLinkSet(bitext.active_linkset, p.alignment);
-					p.writeToFile();
+					p.addLinkSet(bitext.active_linkset);
 					if (sentID < bitext.size()) {
 						bitext.newLinkSet(); // flush active linkset
 						bitext.setSentID(++sentID);
@@ -155,8 +153,7 @@ public class AlignMainContent {
         prev_button.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					Pair p = bitext.getPair();
-					p.addLinkSet(bitext.active_linkset, p.alignment);
-					p.writeToFile();
+					p.addLinkSet(bitext.active_linkset);
 					if (sentID>1) {
 						bitext.newLinkSet(); // flush active linkset
 						bitext.setSentID(--sentID);
